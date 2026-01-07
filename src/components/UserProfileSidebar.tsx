@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { Settings, MessageSquare, Mountain, Bike, Share2, MessageCircle } from "lucide-react";
+import { Settings, MessageSquare, Mountain, Bike, Share2, MessageCircle, X } from "lucide-react";
 import { useState } from "react";
 
 interface UserProfileSidebarProps {
@@ -73,14 +73,17 @@ const UserProfileSidebar = ({ open, onOpenChange }: UserProfileSidebarProps) => 
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-md p-0 overflow-hidden">
+      <SheetContent side="right" className="w-full sm:max-w-md p-0 overflow-hidden [&>button]:hidden">
         <SheetTitle className="sr-only">User Profile</SheetTitle>
         <ScrollArea className="h-full">
           <div className="p-6">
-            {/* Header with settings */}
-            <div className="flex justify-end mb-4">
+            {/* Header with settings and close */}
+            <div className="flex justify-end gap-1 mb-4">
               <Button variant="ghost" size="icon" className="text-muted-foreground">
                 <Settings className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="text-muted-foreground" onClick={() => onOpenChange(false)}>
+                <X className="h-5 w-5" />
               </Button>
             </div>
 
