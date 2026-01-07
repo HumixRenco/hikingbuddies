@@ -35,7 +35,7 @@ const Navbar = () => {
             <Search className="h-5 w-5" />
           </Button>
           <Button variant="cta">Add event</Button>
-          <Avatar className="h-9 w-9 cursor-pointer">
+          <Avatar className="h-9 w-9 cursor-pointer rounded-md">
             <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="User" />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
