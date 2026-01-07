@@ -61,36 +61,16 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-background border-b border-border animate-fade-in">
           <div className="container py-4 space-y-4">
-            {/* User Profile */}
-            <div 
-              className="flex items-center gap-3 py-2 cursor-pointer"
-              onClick={() => {
-                setProfileOpen(true);
-                setMobileMenuOpen(false);
-              }}
-            >
-              <Avatar className="h-10 w-10 rounded-md">
-                <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="User" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-medium text-foreground">Anna</p>
-                <p className="text-sm text-muted-foreground">View profile</p>
-              </div>
-            </div>
-            
-            <div className="border-t border-border pt-4 space-y-4">
-              <Link to="/events" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-                Events
-              </Link>
-              <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-                Routes
-              </Link>
-              <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-                Community
-              </Link>
-              <Button variant="cta" className="w-full">Add event</Button>
-            </div>
+            <Link to="/events" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
+              Events
+            </Link>
+            <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
+              Routes
+            </Link>
+            <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
+              Community
+            </Link>
+            <Button variant="cta" className="w-full">Add event</Button>
           </div>
         </div>
       )}
