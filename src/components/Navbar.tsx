@@ -4,6 +4,7 @@ import { Search, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfileSidebar from "./UserProfileSidebar";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,9 +14,8 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container flex items-center justify-between h-16">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-          <span className="text-2xl">🏔️</span>
-          <span className="hidden sm:inline">Hiking Buddies</span>
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="Hiking Buddies" className="h-8" />
         </Link>
 
         {/* Desktop Navigation */}
