@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfileSidebar from "./UserProfileSidebar";
 import logo from "@/assets/logo.png";
+import logoMobile from "@/assets/logo-mobile.png";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,7 +16,8 @@ const Navbar = () => {
       <nav className="container flex items-center justify-between h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Hiking Buddies" className="h-8" />
+          <img src={logo} alt="Hiking Buddies" className="h-8 hidden sm:block" />
+          <img src={logoMobile} alt="Hiking Buddies" className="h-8 sm:hidden" />
         </Link>
 
         {/* Desktop Navigation */}
