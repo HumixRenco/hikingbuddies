@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Search, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -34,6 +35,10 @@ const Navbar = () => {
             <Search className="h-5 w-5" />
           </Button>
           <Button variant="cta">Add event</Button>
+          <Avatar className="h-9 w-9 cursor-pointer">
+            <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="User" />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
         </div>
 
         {/* Mobile menu button */}
