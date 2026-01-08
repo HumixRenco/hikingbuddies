@@ -50,9 +50,9 @@ export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardP
         </div>
       </div>
 
-      <CardContent className="p-4 space-y-3">
+      <CardContent className="p-4 flex flex-col h-full">
         {/* Title & Region */}
-        <div>
+        <div className="mb-3">
           <h3 className="font-semibold text-lg leading-tight line-clamp-1 group-hover:text-primary transition-colors">
             {route.name}
           </h3>
@@ -63,7 +63,7 @@ export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardP
         </div>
 
         {/* Stats */}
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
           <div className="flex items-center gap-1">
             <span className="font-medium text-foreground">{route.distance}</span>
             <span>km</span>
@@ -81,7 +81,7 @@ export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardP
         </div>
 
         {/* Chips */}
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 content-start flex-1">
           {allChips.map((chip, index) => (
             <Badge 
               key={index} 
@@ -94,7 +94,7 @@ export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardP
         </div>
 
         {/* Rating & Select Button */}
-        <div className="flex items-center justify-between pt-2 border-t border-border">
+        <div className="flex items-center justify-between pt-3 mt-3 border-t border-border">
           <div className="flex items-center gap-1.5">
             <Star className="h-4 w-4 fill-primary text-primary" />
             <span className="font-semibold">{route.rating.toFixed(1)}</span>
