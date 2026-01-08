@@ -1,3 +1,5 @@
+import logo from "@/assets/logo.png";
+
 const Footer = () => {
   return (
     <footer className="bg-foreground text-background py-12">
@@ -6,7 +8,7 @@ const Footer = () => {
           {/* Logo and tagline */}
           <div className="md:col-span-2">
             <a href="/" className="flex items-center gap-2 font-bold text-xl mb-4">
-              <span className="text-2xl">🏔️</span>
+              <img src={logo} alt="Hiking Buddies" className="h-8 w-auto" />
               <span>Hiking Buddies</span>
             </a>
             <p className="text-background/70 max-w-sm">

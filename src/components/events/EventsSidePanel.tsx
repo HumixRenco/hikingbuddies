@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { StackedAvatars } from "@/components/ui/stacked-avatars";
 import { Bike, Mountain, MoveHorizontal, ArrowUpRight } from "lucide-react";
 import eventSummit from "@/assets/event-summit.jpg";
 import eventTrailRun from "@/assets/event-trail-run.jpg";
@@ -21,6 +22,7 @@ const upcomingEvents = [
     elevation: "560m",
     organizer: { name: "Jean-Christian", avatar: "" },
     participantsExtra: 14,
+    participantAvatars: ["", ""],
     isFull: true,
   },
   {
@@ -37,6 +39,7 @@ const upcomingEvents = [
     elevation: "560m",
     organizer: { name: "Jean-Christian", avatar: "" },
     participantsExtra: 14,
+    participantAvatars: ["", ""],
     isFull: true,
   },
 ];
@@ -56,6 +59,7 @@ const pastEvents = [
     elevation: "560m",
     organizer: { name: "Jean-Christian", avatar: "" },
     participantsExtra: 14,
+    participantAvatars: ["", ""],
     images: [eventSummit, eventTrailRun, eventSunrise],
   },
 ];
@@ -99,14 +103,7 @@ const EventsSidePanel = () => {
                 </div>
                 <div className="flex items-center justify-between mt-2">
                   <div className="flex items-center gap-2">
-                    <div className="flex -space-x-1">
-                      <Avatar className="h-5 w-5 border border-background">
-                        <AvatarFallback className="text-xs">J</AvatarFallback>
-                      </Avatar>
-                      <Avatar className="h-5 w-5 border border-background">
-                        <AvatarFallback className="text-xs">M</AvatarFallback>
-                      </Avatar>
-                    </div>
+                    <StackedAvatars avatars={event.participantAvatars} maxDisplay={2} size="sm" />
                     <span className="text-xs text-muted-foreground">
                       +{event.participantsExtra}, by {event.organizer.name}
                     </span>
@@ -158,14 +155,7 @@ const EventsSidePanel = () => {
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex items-center gap-2">
-                      <div className="flex -space-x-1">
-                        <Avatar className="h-5 w-5 border border-background">
-                          <AvatarFallback className="text-xs">J</AvatarFallback>
-                        </Avatar>
-                        <Avatar className="h-5 w-5 border border-background">
-                          <AvatarFallback className="text-xs">M</AvatarFallback>
-                        </Avatar>
-                      </div>
+                      <StackedAvatars avatars={event.participantAvatars} maxDisplay={2} size="sm" />
                       <span className="text-xs text-muted-foreground">
                         +{event.participantsExtra}, by {event.organizer.name}
                       </span>

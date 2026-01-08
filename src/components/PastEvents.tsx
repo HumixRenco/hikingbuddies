@@ -1,4 +1,6 @@
 import { MapPin, Calendar, Users } from "lucide-react";
+import { SectionHeader } from "@/components/ui/section-header";
+import { LinkWithArrow } from "@/components/ui/link-with-arrow";
 import eventSummit from "@/assets/event-summit.jpg";
 import eventTrailRun from "@/assets/event-trail-run.jpg";
 import eventSunrise from "@/assets/event-sunrise.jpg";
@@ -40,30 +42,12 @@ const PastEvents = () => {
     <section className="py-16 bg-background">
       <div className="container">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            Past events
-          </h2>
-          <a
-            href="#"
-            className="text-primary font-semibold hover:underline underline-offset-4 transition-all hidden sm:inline-flex items-center"
-          >
-            View all events
-            <svg
-              className="ml-2 w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </a>
-        </div>
+        <SectionHeader
+          title="Past events"
+          linkText="View all events"
+          linkHref="#"
+          hideLinkOnMobile
+        />
 
         {/* Events scroll container */}
         <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
@@ -106,25 +90,9 @@ const PastEvents = () => {
         </div>
 
         {/* Mobile link */}
-        <a
-          href="#"
-          className="text-primary font-semibold hover:underline underline-offset-4 transition-all sm:hidden mt-6 inline-flex items-center"
-        >
+        <LinkWithArrow href="#" className="sm:hidden mt-6">
           View all events
-          <svg
-            className="ml-2 w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </a>
+        </LinkWithArrow>
       </div>
     </section>
   );

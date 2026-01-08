@@ -1,12 +1,13 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { X, RotateCcw, Star } from "lucide-react";
+import { MultiSelectChips } from "@/components/ui/multi-select-chips";
+import { RangeSliderField } from "@/components/ui/range-slider-field";
 import { 
   Difficulty, 
   TechnicalGrade, 
@@ -40,94 +41,6 @@ const features: RouteFeature[] = ["via-ferrata", "scrambling", "canyoning", "rid
 const facilities: Facility[] = ["restaurants", "cafes", "mountain-huts", "potable-water", "toilets", "parking", "public-transport"];
 const routeTypes: RouteType[] = ["loop", "out-and-back", "point-to-point"];
 const surfaces: SurfaceType[] = ["dirt", "rocky", "gravel", "paved", "mixed"];
-
-interface MultiSelectChipsProps<T extends string> {
-  label: string;
-  options: T[];
-  selected: T[];
-  onChange: (value: T[]) => void;
-  getLabel: (value: T) => string;
-}
-
-function MultiSelectChips<T extends string>({ 
-  label, 
-  options, 
-  selected, 
-  onChange, 
-  getLabel 
-}: MultiSelectChipsProps<T>) {
-  const toggleOption = useCallback((option: T) => {
-    if (selected.includes(option)) {
-      onChange(selected.filter(s => s !== option));
-    } else {
-      onChange([...selected, option]);
-    }
-  }, [selected, onChange]);
-
-  return (
-    <div className="space-y-2">
-      <Label className="text-sm font-medium">{label}</Label>
-      <div className="flex flex-wrap gap-2" role="group" aria-label={label}>
-        {options.map(option => (
-          <Badge
-            key={option}
-            variant={selected.includes(option) ? "default" : "outline"}
-            className={cn(
-              "cursor-pointer transition-colors px-3 py-1",
-              selected.includes(option) 
-                ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                : "hover:bg-accent"
-            )}
-            onClick={() => toggleOption(option)}
-            tabIndex={0}
-            role="checkbox"
-            aria-checked={selected.includes(option)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggleOption(option);
-              }
-            }}
-          >
-            {getLabel(option)}
-          </Badge>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-interface RangeSliderProps {
-  label: string;
-  unit: string;
-  min: number;
-  max: number;
-  step: number;
-  value: [number, number];
-  onChange: (value: [number, number]) => void;
-}
-
-function RangeSlider({ label, unit, min, max, step, value, onChange }: RangeSliderProps) {
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <Label className="text-sm font-medium">{label}</Label>
-        <span className="text-sm text-muted-foreground">
-          {value[0]} – {value[1]} {unit}
-        </span>
-      </div>
-      <Slider
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onValueChange={(v) => onChange(v as [number, number])}
-        className="w-full"
-        aria-label={`${label} range`}
-      />
-    </div>
-  );
-}
 
 export const RouteFiltersPanel = memo(function RouteFiltersPanel({
   filters,
@@ -183,7 +96,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
           <Separator />
 
           {/* Distance Slider */}
-          <RangeSlider
+          <RangeSliderField
             label="Distance"
             unit="km"
             min={0}
@@ -194,7 +107,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
           />
 
           {/* Duration Slider */}
-          <RangeSlider
+          <RangeSliderField
             label="Duration"
             unit="h"
             min={0}
@@ -205,7 +118,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
           />
 
           {/* Elevation Slider */}
-          <RangeSlider
+          <RangeSliderField
             label="Elevation Gain"
             unit="m"
             min={0}

@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { StackedAvatars } from "@/components/ui/stacked-avatars";
 import { Mountain, Bike, PersonStanding, Users } from "lucide-react";
 import { Event } from "@/data/eventsData";
 
@@ -109,14 +110,7 @@ const EventsTable = ({ dateLabel, events, showHeader = true }: EventsTableProps)
                   )}
                 </div>
                 <div className="flex items-center lg:justify-end mt-1">
-                  <div className="flex -space-x-2">
-                    {event.participantAvatars.slice(0, 5).map((avatar, i) => (
-                      <Avatar key={i} className="h-7 w-7 border-2 border-background">
-                        <AvatarImage src={avatar} />
-                        <AvatarFallback className="text-xs">U</AvatarFallback>
-                      </Avatar>
-                    ))}
-                  </div>
+                  <StackedAvatars avatars={event.participantAvatars} maxDisplay={5} size="md" />
                 </div>
               </div>
             </div>
