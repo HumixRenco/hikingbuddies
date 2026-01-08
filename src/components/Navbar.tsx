@@ -25,7 +25,7 @@ const Navbar = () => {
           <Link to="/events" className="text-foreground hover:text-primary transition-colors font-medium">
             Events
           </Link>
-          <Link to="#" className="text-foreground hover:text-primary transition-colors font-medium">
+          <Link to="/routes" className="text-foreground hover:text-primary transition-colors font-medium">
             Routes
           </Link>
           <Link to="#" className="text-foreground hover:text-primary transition-colors font-medium">
@@ -78,7 +78,7 @@ const Navbar = () => {
             <Link to="/events" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
               Events
             </Link>
-            <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
+            <Link to="/routes" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
               Routes
             </Link>
             <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
