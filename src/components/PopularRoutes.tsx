@@ -1,3 +1,5 @@
+import { SectionHeader } from "@/components/ui/section-header";
+import { LinkWithArrow } from "@/components/ui/link-with-arrow";
 import dolomitesImg from "@/assets/route-dolomites.jpg";
 import swissAlpsImg from "@/assets/route-swiss-alps.jpg";
 import pyreneesImg from "@/assets/route-pyrenees.jpg";
@@ -19,30 +21,12 @@ const PopularRoutes = () => {
     <section className="py-16 bg-background">
       <div className="container">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            Explore hiking routes
-          </h2>
-          <a
-            href="#"
-            className="text-primary font-semibold hover:underline underline-offset-4 transition-all hidden sm:inline-flex items-center"
-          >
-            Explore more routes
-            <svg
-              className="ml-2 w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </a>
-        </div>
+        <SectionHeader
+          title="Explore hiking routes"
+          linkText="Explore more routes"
+          linkHref="#"
+          hideLinkOnMobile
+        />
 
         {/* Routes grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -69,25 +53,9 @@ const PopularRoutes = () => {
         </div>
 
         {/* Mobile link */}
-        <a
-          href="#"
-          className="text-primary font-semibold hover:underline underline-offset-4 transition-all sm:hidden mt-6 inline-flex items-center"
-        >
+        <LinkWithArrow href="#" className="sm:hidden mt-6">
           Explore more routes
-          <svg
-            className="ml-2 w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </a>
+        </LinkWithArrow>
       </div>
     </section>
   );

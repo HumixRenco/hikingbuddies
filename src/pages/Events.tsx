@@ -1,5 +1,4 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PageLayout from "@/components/layout/PageLayout";
 import EventFilters from "@/components/events/EventFilters";
 import EventsList from "@/components/events/EventsList";
 import EventsSidePanel from "@/components/events/EventsSidePanel";
@@ -10,36 +9,30 @@ const Events = () => {
   const [activityFilter, setActivityFilter] = useState("all");
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
+    <PageLayout mainClassName="container py-8">
+      <h1 className="text-4xl font-bold text-foreground mb-6">Events</h1>
       
-      <main className="flex-1 container py-8">
-        <h1 className="text-4xl font-bold text-foreground mb-6">Events</h1>
-        
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            <EventFilters
-              locationFilter={locationFilter}
-              setLocationFilter={setLocationFilter}
-              activityFilter={activityFilter}
-              setActivityFilter={setActivityFilter}
-            />
-            <EventsList 
-              locationFilter={locationFilter}
-              activityFilter={activityFilter}
-            />
-          </div>
-          
-          {/* Side Panel */}
-          <aside className="w-full lg:w-80 shrink-0">
-            <EventsSidePanel />
-          </aside>
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Main Content */}
+        <div className="flex-1 min-w-0">
+          <EventFilters
+            locationFilter={locationFilter}
+            setLocationFilter={setLocationFilter}
+            activityFilter={activityFilter}
+            setActivityFilter={setActivityFilter}
+          />
+          <EventsList 
+            locationFilter={locationFilter}
+            activityFilter={activityFilter}
+          />
         </div>
-      </main>
-      
-      <Footer />
-    </div>
+        
+        {/* Side Panel */}
+        <aside className="w-full lg:w-80 shrink-0">
+          <EventsSidePanel />
+        </aside>
+      </div>
+    </PageLayout>
   );
 };
 

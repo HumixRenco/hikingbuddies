@@ -1,3 +1,4 @@
+import { LinkWithArrow } from "@/components/ui/link-with-arrow";
 import missionImg from "@/assets/mission-community.jpg";
 
 const MissionStatement = () => {
@@ -25,25 +26,9 @@ const MissionStatement = () => {
               by passionate community members, just like you, and therefore free of charge 
               except transportation and personal costs.
             </p>
-            <a
-              href="#"
-              className="inline-flex items-center text-primary font-semibold hover:underline underline-offset-4 transition-all"
-            >
+            <LinkWithArrow href="#">
               More about community rules and values
-              <svg
-                className="ml-2 w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
+            </LinkWithArrow>
           </div>
         </div>
       </div>
