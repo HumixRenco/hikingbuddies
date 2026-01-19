@@ -228,7 +228,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
           {/* Min Rating */}
           <div className="space-y-3">
             <Label className="text-sm font-medium">Minimum Rating</Label>
-            <div className="flex gap-2" role="group" aria-label="Minimum rating">
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Minimum rating">
               {[0, 3, 3.5, 4, 4.5].map((rating) => (
                 <Badge
                   key={rating}
