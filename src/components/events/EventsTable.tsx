@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { StackedAvatars } from "@/components/ui/stacked-avatars";
 import { Mountain, Bike, PersonStanding, Users } from "lucide-react";
 import { Event } from "@/data/eventsData";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface EventsTableProps {
   dateLabel: string;
@@ -20,6 +21,8 @@ const activityIcons: Record<string, React.ElementType> = {
 };
 
 const EventsTable = ({ dateLabel, events, showHeader = true, onEventClick }: EventsTableProps) => {
+  const { t } = useLanguage();
+
   return (
     <div className="mb-8">
       {/* Date Header with Column Labels */}
@@ -27,9 +30,9 @@ const EventsTable = ({ dateLabel, events, showHeader = true, onEventClick }: Eve
         <h2 className="text-lg font-semibold text-foreground">{dateLabel}</h2>
         {showHeader && (
           <div className="hidden lg:flex items-center text-sm text-muted-foreground ml-auto gap-0">
-            <span className="w-[140px]">Departing from</span>
-            <span className="w-[200px]">Activity</span>
-            <span className="w-[180px] text-right">Participants</span>
+            <span className="w-[140px]">{t("eventsTable.departingFrom")}</span>
+            <span className="w-[200px]">{t("eventsTable.activity")}</span>
+            <span className="w-[180px] text-right">{t("eventsTable.participants")}</span>
           </div>
         )}
       </div>
@@ -68,7 +71,7 @@ const EventsTable = ({ dateLabel, events, showHeader = true, onEventClick }: Eve
                     <AvatarImage src={event.organizer.avatar} alt={event.organizer.name} />
                     <AvatarFallback className="text-xs">{event.organizer.name[0]}</AvatarFallback>
                   </Avatar>
-                  <span className="text-sm text-muted-foreground">by {event.organizer.name}</span>
+                  <span className="text-sm text-muted-foreground">{t("eventsTable.by")} {event.organizer.name}</span>
                 </div>
               </div>
 
@@ -76,7 +79,9 @@ const EventsTable = ({ dateLabel, events, showHeader = true, onEventClick }: Eve
               <div className="lg:w-[140px] shrink-0">
                 <p className="text-sm font-medium text-foreground">{event.departurePlace}</p>
                 <div className="text-sm text-muted-foreground">
-                  {event.transportMode === "none" ? "No transport" : `by ${event.transportMode.charAt(0).toUpperCase() + event.transportMode.slice(1)}`}
+                  {event.transportMode === "none" 
+                    ? t("eventsTable.noTransport")
+                    : `${t("eventsTable.byTransport")} ${event.transportMode.charAt(0).toUpperCase() + event.transportMode.slice(1)}`}
                 </div>
               </div>
 
@@ -94,21 +99,21 @@ const EventsTable = ({ dateLabel, events, showHeader = true, onEventClick }: Eve
                 <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
                   <span>{event.distance}</span>
                   <span>•</span>
-                  <span>{event.elevation} elevation</span>
+                  <span>{event.elevation} {t("eventsTable.elevation")}</span>
                   <span>•</span>
-                  <span>{event.totalHeight} {event.activityType === "hiking" ? "total height" : "descent"}</span>
+                  <span>{event.totalHeight} {event.activityType === "hiking" ? t("eventsTable.totalHeight") : t("eventsTable.descent")}</span>
                 </div>
               </div>
 
               {/* Participants */}
               <div className="lg:w-[180px] shrink-0 lg:text-right">
                 <div className="flex items-center lg:justify-end gap-1 text-sm">
-                  <span className="text-foreground font-medium">{event.participantsCount} coming</span>
+                  <span className="text-foreground font-medium">{event.participantsCount} {t("eventsTable.coming")}</span>
                   <span className="text-muted-foreground">/</span>
                   {event.waitlistCount > 0 ? (
-                    <span className="text-muted-foreground italic">{event.waitlistCount} in waitlist</span>
+                    <span className="text-muted-foreground italic">{event.waitlistCount} {t("eventsTable.inWaitlist")}</span>
                   ) : (
-                    <span className="text-primary font-medium">{event.availableSpots} available</span>
+                    <span className="text-primary font-medium">{event.availableSpots} {t("eventsTable.available")}</span>
                   )}
                 </div>
                 <div className="flex items-center lg:justify-end mt-1">

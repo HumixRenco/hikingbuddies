@@ -9,7 +9,75 @@ export const languageNames: Record<Language, string> = {
 
 export const translations = {
   en: {
-    // Page header
+    // Navbar
+    "nav.events": "Events",
+    "nav.routes": "Routes",
+    "nav.community": "Community",
+    "nav.addEvent": "Add event",
+    
+    // Hero Section
+    "hero.title": "Adventures are better",
+    "hero.titleHighlight": "with buddies",
+    "hero.description": "Hiking Buddies is a non-profit community of outdoor and sport lovers. Join an upcoming hiking, climbing, cycling – you name it – event or organize your own and enjoy your adventures with like-minded people!",
+    "hero.searchPlaceholder": "Search events, routes, or communities...",
+    
+    // Activity Tags
+    "activity.hiking": "Hiking",
+    "activity.climbing": "Climbing",
+    "activity.cycling": "Cycling",
+    "activity.waterSports": "Water sports",
+    "activity.allActivities": "All activities",
+    "activity.skiTouring": "Ski Touring",
+    "activity.bouldering": "Bouldering",
+    "activity.social": "Social",
+    
+    // Mission Statement
+    "mission.title": "What we stand for",
+    "mission.description": "We are a community of outdoor sports lovers and restless mountain explorers, and we believe it's more fun to do it together. Most of our events are organized by passionate community members, just like you, and therefore free of charge except transportation and personal costs.",
+    "mission.linkText": "More about community rules and values",
+    
+    // Popular Routes
+    "popularRoutes.title": "Explore hiking routes",
+    "popularRoutes.linkText": "Explore more routes",
+    "popularRoutes.routeCount": "routes",
+    
+    // Communities
+    "communities.title": "Join a local community",
+    "communities.description": "Connect with outdoor enthusiasts in your area and discover new adventures together",
+    "communities.members": "members",
+    
+    // Past Events
+    "pastEvents.title": "Past events",
+    "pastEvents.linkText": "View all events",
+    "pastEvents.attendees": "attendees",
+    
+    // Events Page
+    "events.pageTitle": "Events",
+    "events.upcomingEvents": "Upcoming events",
+    "events.yourUpcomingEvents": "Your upcoming events",
+    "events.yourPastEvents": "Your past events",
+    "events.allLocations": "All locations",
+    "events.allActivities": "All activities",
+    "events.fromMunich": "From Munich",
+    "events.fromZurich": "From Zurich",
+    "events.fromGeneva": "From Geneva",
+    "events.fromVienna": "From Vienna",
+    
+    // Events Table
+    "eventsTable.departingFrom": "Departing from",
+    "eventsTable.activity": "Activity",
+    "eventsTable.participants": "Participants",
+    "eventsTable.by": "by",
+    "eventsTable.noTransport": "No transport",
+    "eventsTable.byTransport": "by",
+    "eventsTable.elevation": "elevation",
+    "eventsTable.totalHeight": "total height",
+    "eventsTable.descent": "descent",
+    "eventsTable.coming": "coming",
+    "eventsTable.inWaitlist": "in waitlist",
+    "eventsTable.available": "available",
+    
+    // Routes Page
     "routes.title": "Explore Routes",
     "routes.subtitle": "Find the perfect hiking route for your next adventure",
     
@@ -35,6 +103,7 @@ export const translations = {
     "difficulty.easy": "Easy",
     "difficulty.moderate": "Moderate",
     "difficulty.hard": "Hard",
+    "difficulty.medium": "Medium",
     
     // Highlight labels
     "highlight.lakes": "Lakes",
@@ -98,16 +167,78 @@ export const translations = {
     
     // Route card
     "routeCard.select": "Select",
-    
-    // Navbar
-    "nav.events": "Events",
-    "nav.routes": "Routes",
-    "nav.community": "Community",
-    "nav.addEvent": "Add event",
   },
   
   fr: {
-    // Page header
+    // Navbar
+    "nav.events": "Événements",
+    "nav.routes": "Itinéraires",
+    "nav.community": "Communauté",
+    "nav.addEvent": "Ajouter un événement",
+    
+    // Hero Section
+    "hero.title": "Les aventures sont meilleures",
+    "hero.titleHighlight": "entre amis",
+    "hero.description": "Hiking Buddies est une communauté à but non lucratif d'amateurs de plein air et de sport. Rejoignez un événement de randonnée, d'escalade, de vélo – ou autre – ou organisez le vôtre et profitez de vos aventures avec des personnes partageant les mêmes idées !",
+    "hero.searchPlaceholder": "Rechercher des événements, itinéraires ou communautés...",
+    
+    // Activity Tags
+    "activity.hiking": "Randonnée",
+    "activity.climbing": "Escalade",
+    "activity.cycling": "Cyclisme",
+    "activity.waterSports": "Sports nautiques",
+    "activity.allActivities": "Toutes les activités",
+    "activity.skiTouring": "Ski de randonnée",
+    "activity.bouldering": "Bloc",
+    "activity.social": "Social",
+    
+    // Mission Statement
+    "mission.title": "Ce que nous défendons",
+    "mission.description": "Nous sommes une communauté d'amateurs de sports de plein air et d'explorateurs de montagne, et nous croyons que c'est plus amusant de le faire ensemble. La plupart de nos événements sont organisés par des membres passionnés de la communauté, comme vous, et donc gratuits sauf les frais de transport et personnels.",
+    "mission.linkText": "En savoir plus sur les règles et valeurs de la communauté",
+    
+    // Popular Routes
+    "popularRoutes.title": "Explorer les itinéraires de randonnée",
+    "popularRoutes.linkText": "Explorer plus d'itinéraires",
+    "popularRoutes.routeCount": "itinéraires",
+    
+    // Communities
+    "communities.title": "Rejoignez une communauté locale",
+    "communities.description": "Connectez-vous avec des passionnés de plein air dans votre région et découvrez de nouvelles aventures ensemble",
+    "communities.members": "membres",
+    
+    // Past Events
+    "pastEvents.title": "Événements passés",
+    "pastEvents.linkText": "Voir tous les événements",
+    "pastEvents.attendees": "participants",
+    
+    // Events Page
+    "events.pageTitle": "Événements",
+    "events.upcomingEvents": "Événements à venir",
+    "events.yourUpcomingEvents": "Vos événements à venir",
+    "events.yourPastEvents": "Vos événements passés",
+    "events.allLocations": "Tous les lieux",
+    "events.allActivities": "Toutes les activités",
+    "events.fromMunich": "De Munich",
+    "events.fromZurich": "De Zurich",
+    "events.fromGeneva": "De Genève",
+    "events.fromVienna": "De Vienne",
+    
+    // Events Table
+    "eventsTable.departingFrom": "Départ de",
+    "eventsTable.activity": "Activité",
+    "eventsTable.participants": "Participants",
+    "eventsTable.by": "par",
+    "eventsTable.noTransport": "Sans transport",
+    "eventsTable.byTransport": "en",
+    "eventsTable.elevation": "dénivelé",
+    "eventsTable.totalHeight": "hauteur totale",
+    "eventsTable.descent": "descente",
+    "eventsTable.coming": "inscrits",
+    "eventsTable.inWaitlist": "en liste d'attente",
+    "eventsTable.available": "disponibles",
+    
+    // Routes Page
     "routes.title": "Explorer les Itinéraires",
     "routes.subtitle": "Trouvez l'itinéraire de randonnée parfait pour votre prochaine aventure",
     
@@ -133,6 +264,7 @@ export const translations = {
     "difficulty.easy": "Facile",
     "difficulty.moderate": "Modéré",
     "difficulty.hard": "Difficile",
+    "difficulty.medium": "Moyen",
     
     // Highlight labels
     "highlight.lakes": "Lacs",
@@ -196,16 +328,78 @@ export const translations = {
     
     // Route card
     "routeCard.select": "Sélectionner",
-    
-    // Navbar
-    "nav.events": "Événements",
-    "nav.routes": "Itinéraires",
-    "nav.community": "Communauté",
-    "nav.addEvent": "Ajouter un événement",
   },
   
   it: {
-    // Page header
+    // Navbar
+    "nav.events": "Eventi",
+    "nav.routes": "Percorsi",
+    "nav.community": "Comunità",
+    "nav.addEvent": "Aggiungi evento",
+    
+    // Hero Section
+    "hero.title": "Le avventure sono migliori",
+    "hero.titleHighlight": "con gli amici",
+    "hero.description": "Hiking Buddies è una comunità senza scopo di lucro di amanti dell'outdoor e dello sport. Unisciti a un evento di escursionismo, arrampicata, ciclismo – o altro – oppure organizza il tuo e goditi le avventure con persone che la pensano come te!",
+    "hero.searchPlaceholder": "Cerca eventi, percorsi o comunità...",
+    
+    // Activity Tags
+    "activity.hiking": "Escursionismo",
+    "activity.climbing": "Arrampicata",
+    "activity.cycling": "Ciclismo",
+    "activity.waterSports": "Sport acquatici",
+    "activity.allActivities": "Tutte le attività",
+    "activity.skiTouring": "Sci alpinismo",
+    "activity.bouldering": "Boulder",
+    "activity.social": "Sociale",
+    
+    // Mission Statement
+    "mission.title": "I nostri valori",
+    "mission.description": "Siamo una comunità di amanti degli sport all'aria aperta e instancabili esploratori di montagna, e crediamo che sia più divertente farlo insieme. La maggior parte dei nostri eventi è organizzata da membri appassionati della comunità, proprio come te, e quindi gratuiti tranne i costi di trasporto e personali.",
+    "mission.linkText": "Scopri di più sulle regole e i valori della comunità",
+    
+    // Popular Routes
+    "popularRoutes.title": "Esplora i percorsi escursionistici",
+    "popularRoutes.linkText": "Esplora altri percorsi",
+    "popularRoutes.routeCount": "percorsi",
+    
+    // Communities
+    "communities.title": "Unisciti a una comunità locale",
+    "communities.description": "Connettiti con gli appassionati di outdoor nella tua zona e scopri nuove avventure insieme",
+    "communities.members": "membri",
+    
+    // Past Events
+    "pastEvents.title": "Eventi passati",
+    "pastEvents.linkText": "Vedi tutti gli eventi",
+    "pastEvents.attendees": "partecipanti",
+    
+    // Events Page
+    "events.pageTitle": "Eventi",
+    "events.upcomingEvents": "Eventi in programma",
+    "events.yourUpcomingEvents": "I tuoi prossimi eventi",
+    "events.yourPastEvents": "I tuoi eventi passati",
+    "events.allLocations": "Tutte le località",
+    "events.allActivities": "Tutte le attività",
+    "events.fromMunich": "Da Monaco",
+    "events.fromZurich": "Da Zurigo",
+    "events.fromGeneva": "Da Ginevra",
+    "events.fromVienna": "Da Vienna",
+    
+    // Events Table
+    "eventsTable.departingFrom": "Partenza da",
+    "eventsTable.activity": "Attività",
+    "eventsTable.participants": "Partecipanti",
+    "eventsTable.by": "di",
+    "eventsTable.noTransport": "Nessun trasporto",
+    "eventsTable.byTransport": "con",
+    "eventsTable.elevation": "dislivello",
+    "eventsTable.totalHeight": "altezza totale",
+    "eventsTable.descent": "discesa",
+    "eventsTable.coming": "iscritti",
+    "eventsTable.inWaitlist": "in lista d'attesa",
+    "eventsTable.available": "disponibili",
+    
+    // Routes Page
     "routes.title": "Esplora i Percorsi",
     "routes.subtitle": "Trova il percorso escursionistico perfetto per la tua prossima avventura",
     
@@ -231,6 +425,7 @@ export const translations = {
     "difficulty.easy": "Facile",
     "difficulty.moderate": "Moderato",
     "difficulty.hard": "Difficile",
+    "difficulty.medium": "Medio",
     
     // Highlight labels
     "highlight.lakes": "Laghi",
@@ -294,16 +489,78 @@ export const translations = {
     
     // Route card
     "routeCard.select": "Seleziona",
-    
-    // Navbar
-    "nav.events": "Eventi",
-    "nav.routes": "Percorsi",
-    "nav.community": "Comunità",
-    "nav.addEvent": "Aggiungi evento",
   },
   
   es: {
-    // Page header
+    // Navbar
+    "nav.events": "Eventos",
+    "nav.routes": "Rutas",
+    "nav.community": "Comunidad",
+    "nav.addEvent": "Añadir evento",
+    
+    // Hero Section
+    "hero.title": "Las aventuras son mejores",
+    "hero.titleHighlight": "con amigos",
+    "hero.description": "Hiking Buddies es una comunidad sin ánimo de lucro de amantes del aire libre y el deporte. ¡Únete a un evento de senderismo, escalada, ciclismo – lo que sea – u organiza el tuyo y disfruta de tus aventuras con personas afines!",
+    "hero.searchPlaceholder": "Buscar eventos, rutas o comunidades...",
+    
+    // Activity Tags
+    "activity.hiking": "Senderismo",
+    "activity.climbing": "Escalada",
+    "activity.cycling": "Ciclismo",
+    "activity.waterSports": "Deportes acuáticos",
+    "activity.allActivities": "Todas las actividades",
+    "activity.skiTouring": "Esquí de travesía",
+    "activity.bouldering": "Búlder",
+    "activity.social": "Social",
+    
+    // Mission Statement
+    "mission.title": "Lo que defendemos",
+    "mission.description": "Somos una comunidad de amantes de los deportes al aire libre y exploradores incansables de montaña, y creemos que es más divertido hacerlo juntos. La mayoría de nuestros eventos son organizados por miembros apasionados de la comunidad, como tú, y por lo tanto gratuitos excepto los costes de transporte y personales.",
+    "mission.linkText": "Más sobre las reglas y valores de la comunidad",
+    
+    // Popular Routes
+    "popularRoutes.title": "Explora rutas de senderismo",
+    "popularRoutes.linkText": "Explorar más rutas",
+    "popularRoutes.routeCount": "rutas",
+    
+    // Communities
+    "communities.title": "Únete a una comunidad local",
+    "communities.description": "Conéctate con entusiastas del aire libre en tu zona y descubre nuevas aventuras juntos",
+    "communities.members": "miembros",
+    
+    // Past Events
+    "pastEvents.title": "Eventos pasados",
+    "pastEvents.linkText": "Ver todos los eventos",
+    "pastEvents.attendees": "asistentes",
+    
+    // Events Page
+    "events.pageTitle": "Eventos",
+    "events.upcomingEvents": "Próximos eventos",
+    "events.yourUpcomingEvents": "Tus próximos eventos",
+    "events.yourPastEvents": "Tus eventos pasados",
+    "events.allLocations": "Todas las ubicaciones",
+    "events.allActivities": "Todas las actividades",
+    "events.fromMunich": "Desde Múnich",
+    "events.fromZurich": "Desde Zúrich",
+    "events.fromGeneva": "Desde Ginebra",
+    "events.fromVienna": "Desde Viena",
+    
+    // Events Table
+    "eventsTable.departingFrom": "Salida desde",
+    "eventsTable.activity": "Actividad",
+    "eventsTable.participants": "Participantes",
+    "eventsTable.by": "por",
+    "eventsTable.noTransport": "Sin transporte",
+    "eventsTable.byTransport": "en",
+    "eventsTable.elevation": "desnivel",
+    "eventsTable.totalHeight": "altura total",
+    "eventsTable.descent": "descenso",
+    "eventsTable.coming": "inscritos",
+    "eventsTable.inWaitlist": "en lista de espera",
+    "eventsTable.available": "disponibles",
+    
+    // Routes Page
     "routes.title": "Explorar Rutas",
     "routes.subtitle": "Encuentra la ruta de senderismo perfecta para tu próxima aventura",
     
@@ -329,6 +586,7 @@ export const translations = {
     "difficulty.easy": "Fácil",
     "difficulty.moderate": "Moderado",
     "difficulty.hard": "Difícil",
+    "difficulty.medium": "Medio",
     
     // Highlight labels
     "highlight.lakes": "Lagos",
@@ -392,12 +650,6 @@ export const translations = {
     
     // Route card
     "routeCard.select": "Seleccionar",
-    
-    // Navbar
-    "nav.events": "Eventos",
-    "nav.routes": "Rutas",
-    "nav.community": "Comunidad",
-    "nav.addEvent": "Añadir evento",
   },
 } as const;
 

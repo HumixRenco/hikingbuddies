@@ -1,6 +1,7 @@
 import { MapPin, Calendar, Users } from "lucide-react";
 import { SectionHeader } from "@/components/ui/section-header";
 import { LinkWithArrow } from "@/components/ui/link-with-arrow";
+import { useLanguage } from "@/i18n/LanguageContext";
 import eventSummit from "@/assets/event-summit.jpg";
 import eventTrailRun from "@/assets/event-trail-run.jpg";
 import eventSunrise from "@/assets/event-sunrise.jpg";
@@ -38,13 +39,15 @@ const events = [
 ];
 
 const PastEvents = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-16 bg-background">
       <div className="container">
         {/* Header */}
         <SectionHeader
-          title="Past events"
-          linkText="View all events"
+          title={t("pastEvents.title")}
+          linkText={t("pastEvents.linkText")}
           linkHref="#"
           hideLinkOnMobile
         />
@@ -82,7 +85,7 @@ const PastEvents = () => {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Users className="h-4 w-4" />
-                  <span>{event.attendees} attendees</span>
+                  <span>{event.attendees} {t("pastEvents.attendees")}</span>
                 </div>
               </div>
             </a>
@@ -91,7 +94,7 @@ const PastEvents = () => {
 
         {/* Mobile link */}
         <LinkWithArrow href="#" className="sm:hidden mt-6">
-          View all events
+          {t("pastEvents.linkText")}
         </LinkWithArrow>
       </div>
     </section>

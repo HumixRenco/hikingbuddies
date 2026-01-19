@@ -1,5 +1,6 @@
 import { SectionHeader } from "@/components/ui/section-header";
 import { LinkWithArrow } from "@/components/ui/link-with-arrow";
+import { useLanguage } from "@/i18n/LanguageContext";
 import dolomitesImg from "@/assets/route-dolomites.jpg";
 import swissAlpsImg from "@/assets/route-swiss-alps.jpg";
 import pyreneesImg from "@/assets/route-pyrenees.jpg";
@@ -17,13 +18,15 @@ const routes = [
 ];
 
 const PopularRoutes = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-16 bg-background">
       <div className="container">
         {/* Header */}
         <SectionHeader
-          title="Explore hiking routes"
-          linkText="Explore more routes"
+          title={t("popularRoutes.title")}
+          linkText={t("popularRoutes.linkText")}
           linkHref="#"
           hideLinkOnMobile
         />
@@ -47,14 +50,16 @@ const PopularRoutes = () => {
               <h3 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
                 {route.name}
               </h3>
-              <p className="text-sm text-muted-foreground">{route.routes} routes</p>
+              <p className="text-sm text-muted-foreground">
+                {route.routes} {t("popularRoutes.routeCount")}
+              </p>
             </a>
           ))}
         </div>
 
         {/* Mobile link */}
         <LinkWithArrow href="#" className="sm:hidden mt-6">
-          Explore more routes
+          {t("popularRoutes.linkText")}
         </LinkWithArrow>
       </div>
     </section>

@@ -1,7 +1,10 @@
 import { SidePanelHeader } from "./side-panel/SidePanelHeader";
 import { SidePanelEventsList } from "./side-panel/SidePanelEventsList";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 function EventsSidePanel() {
+  const { t } = useLanguage();
+
   const upcomingEvents = [
     {
       date: "Jun 30",
@@ -62,11 +65,11 @@ function EventsSidePanel() {
 
   return (
     <aside className="px-6 py-8 rounded-xl max-w-[363px]">
-      <SidePanelHeader title="Your upcoming events" />
+      <SidePanelHeader title={t("events.yourUpcomingEvents")} />
       <SidePanelEventsList events={upcomingEvents} />
 
       <div className="mt-8">
-        <SidePanelHeader title="Your past events" />
+        <SidePanelHeader title={t("events.yourPastEvents")} />
         <SidePanelEventsList events={pastEvents} />
       </div>
     </aside>
