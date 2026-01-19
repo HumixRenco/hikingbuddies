@@ -10,15 +10,39 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const STORAGE_KEY = "preferred-language";
+const SUPPORTED_LANGUAGES: Language[] = ["en", "fr", "it", "es"];
+
+/**
+ * Detects the user's preferred language from browser settings.
+ * Returns the first supported language found, or "en" as fallback.
+ */
+function detectBrowserLanguage(): Language {
+  if (typeof navigator === "undefined") return "en";
+  
+  // navigator.languages gives ordered list of user preferences
+  const browserLanguages = navigator.languages || [navigator.language];
+  
+  for (const lang of browserLanguages) {
+    // Extract primary language code (e.g., "fr-FR" → "fr")
+    const primaryCode = lang.split("-")[0].toLowerCase();
+    if (SUPPORTED_LANGUAGES.includes(primaryCode as Language)) {
+      return primaryCode as Language;
+    }
+  }
+  
+  return "en";
+}
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
-    // Check localStorage on initial load
     if (typeof window !== "undefined") {
+      // 1. Check localStorage first (user's explicit choice)
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored && ["en", "fr", "it", "es"].includes(stored)) {
+      if (stored && SUPPORTED_LANGUAGES.includes(stored as Language)) {
         return stored as Language;
       }
+      // 2. Detect from browser settings
+      return detectBrowserLanguage();
     }
     return "en";
   });
