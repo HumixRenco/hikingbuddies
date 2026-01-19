@@ -7,7 +7,7 @@ import EquipmentList from "./EquipmentList";
 import RouteStats from "./RouteStats";
 import OrganizerCard from "./OrganizerCard";
 import PastEventsList from "./PastEventsList";
-import DiscussionChat from "./DiscussionChat";
+
 
 interface RouteDetailsProps {
   open: boolean;
@@ -137,14 +137,6 @@ const RouteDetails = ({
           <PastEventsList
             events={route.pastEvents}
             onViewEvent={onViewPastEvent}
-          />
-
-          <hr className="border-border" />
-
-          <DiscussionChat
-            comments={route.comments}
-            totalComments={route.totalComments}
-            onSendMessage={onSendMessage}
           />
         </div>
       }
