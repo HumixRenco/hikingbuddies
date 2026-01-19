@@ -5,11 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { 
   Route, 
-  difficultyLabels, 
-  highlightLabels, 
-  featureLabels, 
-  facilityLabels 
+  Highlight, 
+  RouteFeature, 
+  Facility 
 } from "@/data/routesData";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 
 interface RouteCardProps {
@@ -24,11 +24,26 @@ const difficultyColors: Record<string, string> = {
 };
 
 export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardProps) {
-  const allChips = [
-    ...route.highlights.slice(0, 2).map(h => highlightLabels[h]),
-    ...route.features.slice(0, 1).map(f => featureLabels[f]),
-    ...route.facilities.slice(0, 1).map(f => facilityLabels[f]),
-  ].slice(0, 4);
+  const { t } = useLanguage();
+
+  // Get translated labels for chips
+  const getChipLabels = () => {
+    const labels: string[] = [];
+    
+    route.highlights.slice(0, 2).forEach((h: Highlight) => {
+      labels.push(t(`highlight.${h}` as any));
+    });
+    route.features.slice(0, 1).forEach((f: RouteFeature) => {
+      labels.push(t(`feature.${f}` as any));
+    });
+    route.facilities.slice(0, 1).forEach((f: Facility) => {
+      labels.push(t(`facility.${f}` as any));
+    });
+    
+    return labels.slice(0, 4);
+  };
+
+  const allChips = getChipLabels();
 
   return (
     <Card className="group overflow-hidden hover:shadow-hover transition-shadow duration-200">
@@ -42,7 +57,7 @@ export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardP
         />
         <div className="absolute top-3 left-3 flex gap-2">
           <Badge className={cn("font-medium", difficultyColors[route.difficulty])}>
-            {difficultyLabels[route.difficulty]}
+            {t(`difficulty.${route.difficulty}` as any)}
           </Badge>
           <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm">
             {route.technicalGrade}
@@ -109,7 +124,7 @@ export const RouteCard = memo(function RouteCard({ route, onSelect }: RouteCardP
             onClick={() => onSelect(route.id)}
             aria-label={`Select ${route.name}`}
           >
-            Select
+            {t("routeCard.select")}
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

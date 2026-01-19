@@ -15,14 +15,9 @@ import {
   Facility, 
   RouteType, 
   SurfaceType,
-  difficultyLabels,
-  highlightLabels,
-  featureLabels,
-  facilityLabels,
-  routeTypeLabels,
-  surfaceLabels,
 } from "@/data/routesData";
 import { RouteFilters } from "@/hooks/useRouteFilters";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 
 interface RouteFiltersPanelProps {
@@ -48,12 +43,14 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
   activeFilterCount,
   onClose,
 }: RouteFiltersPanelProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col h-full w-full overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border min-w-0">
         <div className="flex items-center gap-2 min-w-0">
-          <h2 className="font-semibold text-lg">Filters</h2>
+          <h2 className="font-semibold text-lg">{t("filters.title")}</h2>
           {activeFilterCount > 0 && (
             <Badge variant="secondary" className="rounded-full">
               {activeFilterCount}
@@ -69,7 +66,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
               className="text-muted-foreground hover:text-foreground gap-1"
             >
               <RotateCcw className="h-4 w-4" />
-              Reset
+              {t("filters.reset")}
             </Button>
           )}
           {onClose && (
@@ -85,18 +82,18 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
         <div className="p-4 space-y-6 min-w-0">
           {/* Difficulty */}
           <MultiSelectChips
-            label="Difficulty"
+            label={t("filters.difficulty")}
             options={difficulties}
             selected={filters.difficulty}
             onChange={(value) => updateFilter("difficulty", value)}
-            getLabel={(d) => difficultyLabels[d]}
+            getLabel={(d) => t(`difficulty.${d}` as any)}
           />
 
           <Separator />
 
           {/* Distance Slider */}
           <RangeSliderField
-            label="Distance"
+            label={t("filters.distance")}
             unit="km"
             min={0}
             max={30}
@@ -107,7 +104,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
 
           {/* Duration Slider */}
           <RangeSliderField
-            label="Duration"
+            label={t("filters.duration")}
             unit="h"
             min={0}
             max={12}
@@ -118,7 +115,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
 
           {/* Elevation Slider */}
           <RangeSliderField
-            label="Elevation Gain"
+            label={t("filters.elevationGain")}
             unit="m"
             min={0}
             max={2500}
@@ -131,7 +128,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
 
           {/* Technical Grade */}
           <MultiSelectChips
-            label="Technical Grade"
+            label={t("filters.technicalGrade")}
             options={technicalGrades}
             selected={filters.technicalGrades}
             onChange={(value) => updateFilter("technicalGrades", value)}
@@ -142,55 +139,55 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
 
           {/* Highlights */}
           <MultiSelectChips
-            label="Highlights"
+            label={t("filters.highlights")}
             options={highlights}
             selected={filters.highlights}
             onChange={(value) => updateFilter("highlights", value)}
-            getLabel={(h) => highlightLabels[h]}
+            getLabel={(h) => t(`highlight.${h}` as any)}
           />
 
           <Separator />
 
           {/* Route Features */}
           <MultiSelectChips
-            label="Route Features"
+            label={t("filters.routeFeatures")}
             options={features}
             selected={filters.features}
             onChange={(value) => updateFilter("features", value)}
-            getLabel={(f) => featureLabels[f]}
+            getLabel={(f) => t(`feature.${f}` as any)}
           />
 
           <Separator />
 
           {/* Facilities */}
           <MultiSelectChips
-            label="Facilities"
+            label={t("filters.facilities")}
             options={facilities}
             selected={filters.facilities}
             onChange={(value) => updateFilter("facilities", value)}
-            getLabel={(f) => facilityLabels[f]}
+            getLabel={(f) => t(`facility.${f}` as any)}
           />
 
           <Separator />
 
           {/* Route Type */}
           <MultiSelectChips
-            label="Route Type"
+            label={t("filters.routeType")}
             options={routeTypes}
             selected={filters.routeTypes}
             onChange={(value) => updateFilter("routeTypes", value)}
-            getLabel={(t) => routeTypeLabels[t]}
+            getLabel={(rt) => t(`routeType.${rt}` as any)}
           />
 
           <Separator />
 
           {/* Surface */}
           <MultiSelectChips
-            label="Surface / Terrain"
+            label={t("filters.surface")}
             options={surfaces}
             selected={filters.surfaces}
             onChange={(value) => updateFilter("surfaces", value)}
-            getLabel={(s) => surfaceLabels[s]}
+            getLabel={(s) => t(`surface.${s}` as any)}
           />
 
           <Separator />
@@ -199,7 +196,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="dog-friendly" className="text-sm font-medium cursor-pointer">
-                Dog-friendly
+                {t("filters.dogFriendly")}
               </Label>
               <Switch
                 id="dog-friendly"
@@ -211,7 +208,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
             </div>
             <div className="flex items-center justify-between">
               <Label htmlFor="kid-friendly" className="text-sm font-medium cursor-pointer">
-                Kid-friendly
+                {t("filters.kidFriendly")}
               </Label>
               <Switch
                 id="kid-friendly"
@@ -227,7 +224,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
 
           {/* Min Rating */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium">Minimum Rating</Label>
+            <Label className="text-sm font-medium">{t("filters.minRating")}</Label>
             <div className="flex flex-wrap gap-2" role="group" aria-label="Minimum rating">
               {[0, 3, 3.5, 4, 4.5].map((rating) => (
                 <Badge
@@ -251,7 +248,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
                   }}
                 >
                   {rating === 0 ? (
-                    "Any"
+                    t("filters.any")
                   ) : (
                     <>
                       <Star className="h-3 w-3 fill-current" />

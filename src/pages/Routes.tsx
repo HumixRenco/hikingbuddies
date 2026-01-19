@@ -12,11 +12,13 @@ import { RoutesPagination } from "@/components/routes/RoutesPagination";
 import { RoutesEmptyState } from "@/components/routes/RoutesEmptyState";
 import { RouteDetails } from "@/components/details";
 import { Route, difficultyLabels } from "@/data/routesData";
+import { useLanguage } from "@/i18n/LanguageContext";
 import routeSwissAlps from "@/assets/route-swiss-alps.jpg";
 
 const Routes = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(null);
+  const { t } = useLanguage();
   
   const {
     filters,
@@ -106,9 +108,9 @@ const Routes = () => {
       <div className="container py-6">
         {/* Page Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-1">Explore Routes</h1>
+          <h1 className="text-2xl font-bold mb-1">{t("routes.title")}</h1>
           <p className="text-muted-foreground">
-            Find the perfect hiking route for your next adventure
+            {t("routes.subtitle")}
           </p>
         </div>
 
@@ -139,7 +141,7 @@ const Routes = () => {
                       aria-label="Open filters"
                     >
                       <SlidersHorizontal className="h-4 w-4" />
-                      Filters
+                      {t("filters.title")}
                       {activeFilterCount > 0 && (
                         <Badge variant="secondary" className="rounded-full ml-1">
                           {activeFilterCount}
@@ -160,7 +162,7 @@ const Routes = () => {
 
                 {/* Results Count */}
                 <span className="text-sm text-muted-foreground">
-                  {totalResults} {totalResults === 1 ? "route" : "routes"} found
+                  {totalResults} {totalResults === 1 ? t("results.route") : t("results.routes")} {t("results.found")}
                 </span>
               </div>
 
