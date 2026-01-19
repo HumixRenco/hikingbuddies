@@ -1,12 +1,15 @@
 import EventsTable from "./EventsTable";
-import { eventsData } from "@/data/eventsData";
+import { eventsData, Event } from "@/data/eventsData";
 
 interface EventsListProps {
   locationFilter: string;
   activityFilter: string;
+  onEventClick?: (eventId: number) => void;
 }
 
-const EventsList = ({ locationFilter, activityFilter }: EventsListProps) => {
+export { eventsData, type Event };
+
+const EventsList = ({ locationFilter, activityFilter, onEventClick }: EventsListProps) => {
   // Group events by date
   const groupedEvents = eventsData.reduce((acc, event) => {
     const dateKey = event.dateLabel;
@@ -27,6 +30,7 @@ const EventsList = ({ locationFilter, activityFilter }: EventsListProps) => {
           dateLabel={dateLabel}
           events={groupedEvents[dateLabel]}
           showHeader={index === 0}
+          onEventClick={onEventClick}
         />
       ))}
     </div>
