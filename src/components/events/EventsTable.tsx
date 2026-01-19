@@ -8,6 +8,7 @@ interface EventsTableProps {
   dateLabel: string;
   events: Event[];
   showHeader?: boolean;
+  onEventClick?: (eventId: number) => void;
 }
 
 const activityIcons: Record<string, React.ElementType> = {
@@ -18,7 +19,7 @@ const activityIcons: Record<string, React.ElementType> = {
   "ski-touring": Mountain,
 };
 
-const EventsTable = ({ dateLabel, events, showHeader = true }: EventsTableProps) => {
+const EventsTable = ({ dateLabel, events, showHeader = true, onEventClick }: EventsTableProps) => {
   return (
     <div className="mb-8">
       {/* Date Header with Column Labels */}
@@ -42,6 +43,7 @@ const EventsTable = ({ dateLabel, events, showHeader = true }: EventsTableProps)
             <div
               key={event.id}
               className="flex flex-col lg:flex-row items-start lg:items-center py-4 border-b border-border hover:bg-muted/30 transition-colors cursor-pointer gap-4"
+              onClick={() => onEventClick?.(event.id)}
             >
               {/* Time & Duration */}
               <div className="flex lg:flex-col items-center lg:items-start gap-2 lg:gap-0 w-16 shrink-0">
