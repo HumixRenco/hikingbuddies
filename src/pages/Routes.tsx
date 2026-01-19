@@ -115,7 +115,7 @@ const Routes = () => {
         <div className="flex gap-6">
           {/* Desktop Filters Sidebar */}
           <aside className="hidden lg:block w-80 shrink-0">
-            <div className="sticky top-20 border border-border rounded-lg bg-card max-h-[calc(100vh-6rem)] flex flex-col">
+            <div className="sticky top-20 border border-border rounded-lg bg-card overflow-hidden max-h-[calc(100vh-6rem)]">
               <RouteFiltersPanel
                 filters={filters}
                 updateFilter={updateFilter}
