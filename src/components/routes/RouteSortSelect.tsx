@@ -7,37 +7,41 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SortOption } from "@/hooks/useRouteFilters";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { TranslationKey } from "@/i18n/translations";
 
 interface RouteSortSelectProps {
   value: SortOption;
   onChange: (value: SortOption) => void;
 }
 
-const sortOptions: { value: SortOption; label: string }[] = [
-  { value: "relevance", label: "Relevance" },
-  { value: "highest-rated", label: "Highest Rated" },
-  { value: "shortest", label: "Shortest Distance" },
-  { value: "least-elevation", label: "Least Elevation" },
-  { value: "duration-asc", label: "Duration (Low to High)" },
-  { value: "duration-desc", label: "Duration (High to Low)" },
+const sortOptions: { value: SortOption; labelKey: TranslationKey }[] = [
+  { value: "relevance", labelKey: "sort.relevance" },
+  { value: "highest-rated", labelKey: "sort.highest-rated" },
+  { value: "shortest", labelKey: "sort.shortest" },
+  { value: "least-elevation", labelKey: "sort.least-elevation" },
+  { value: "duration-asc", labelKey: "sort.duration-asc" },
+  { value: "duration-desc", labelKey: "sort.duration-desc" },
 ];
 
 export const RouteSortSelect = memo(function RouteSortSelect({ 
   value, 
   onChange 
 }: RouteSortSelectProps) {
+  const { t } = useLanguage();
+
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger 
         className="w-[200px]" 
         aria-label="Sort routes by"
       >
-        <SelectValue placeholder="Sort by" />
+        <SelectValue placeholder={t("sort.placeholder")} />
       </SelectTrigger>
       <SelectContent>
         {sortOptions.map(option => (
           <SelectItem key={option.value} value={option.value}>
-            {option.label}
+            {t(option.labelKey)}
           </SelectItem>
         ))}
       </SelectContent>

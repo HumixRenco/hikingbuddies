@@ -4,12 +4,15 @@ import { Search, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfileSidebar from "./UserProfileSidebar";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useLanguage } from "@/i18n/LanguageContext";
 import logo from "@/assets/logo.png";
 import logoMobile from "@/assets/logo-mobile.png";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -23,22 +26,23 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           <Link to="/events" className="text-foreground hover:text-primary transition-colors font-medium">
-            Events
+            {t("nav.events")}
           </Link>
           <Link to="/routes" className="text-foreground hover:text-primary transition-colors font-medium">
-            Routes
+            {t("nav.routes")}
           </Link>
           <Link to="#" className="text-foreground hover:text-primary transition-colors font-medium">
-            Community
+            {t("nav.community")}
           </Link>
         </div>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-2">
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
             <Search className="h-5 w-5" />
           </Button>
-          <Button variant="cta">Add event</Button>
+          <LanguageSwitcher />
+          <Button variant="cta">{t("nav.addEvent")}</Button>
           <Avatar 
             className="h-9 w-9 cursor-pointer rounded-md"
             onClick={() => setProfileOpen(true)}
@@ -61,6 +65,7 @@ const Navbar = () => {
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
             <Search className="h-5 w-5" />
           </Button>
+          <LanguageSwitcher />
           <Avatar 
             className="h-9 w-9 cursor-pointer rounded-md"
             onClick={() => setProfileOpen(true)}
@@ -76,15 +81,15 @@ const Navbar = () => {
         <div className="md:hidden bg-background border-b border-border animate-fade-in">
           <div className="container py-4 space-y-4">
             <Link to="/events" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              Events
+              {t("nav.events")}
             </Link>
             <Link to="/routes" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              Routes
+              {t("nav.routes")}
             </Link>
             <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              Community
+              {t("nav.community")}
             </Link>
-            <Button variant="cta" className="w-full">Add event</Button>
+            <Button variant="cta" className="w-full">{t("nav.addEvent")}</Button>
           </div>
         </div>
       )}
