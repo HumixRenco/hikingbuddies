@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface EventFiltersProps {
   locationFilter: string;
@@ -19,10 +20,12 @@ const EventFilters = ({
   activityFilter,
   setActivityFilter,
 }: EventFiltersProps) => {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-wrap items-center gap-2 mb-6 p-1 bg-muted/30 rounded-lg w-fit">
       <span className="px-3 py-2 text-sm font-medium text-foreground">
-        Upcoming events
+        {t("events.upcomingEvents")}
       </span>
       
       <div className="h-4 w-px bg-border" />
@@ -32,11 +35,11 @@ const EventFilters = ({
           <SelectValue placeholder="Location" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="munich">From Munich</SelectItem>
-          <SelectItem value="zurich">From Zurich</SelectItem>
-          <SelectItem value="geneva">From Geneva</SelectItem>
-          <SelectItem value="vienna">From Vienna</SelectItem>
-          <SelectItem value="all-locations">All locations</SelectItem>
+          <SelectItem value="munich">{t("events.fromMunich")}</SelectItem>
+          <SelectItem value="zurich">{t("events.fromZurich")}</SelectItem>
+          <SelectItem value="geneva">{t("events.fromGeneva")}</SelectItem>
+          <SelectItem value="vienna">{t("events.fromVienna")}</SelectItem>
+          <SelectItem value="all-locations">{t("events.allLocations")}</SelectItem>
         </SelectContent>
       </Select>
       
@@ -47,12 +50,12 @@ const EventFilters = ({
           <SelectValue placeholder="Activity" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All activities</SelectItem>
-          <SelectItem value="hiking">Hiking</SelectItem>
-          <SelectItem value="cycling">Cycling</SelectItem>
-          <SelectItem value="ski-touring">Ski Touring</SelectItem>
-          <SelectItem value="bouldering">Bouldering</SelectItem>
-          <SelectItem value="social">Social</SelectItem>
+          <SelectItem value="all">{t("events.allActivities")}</SelectItem>
+          <SelectItem value="hiking">{t("activity.hiking")}</SelectItem>
+          <SelectItem value="cycling">{t("activity.cycling")}</SelectItem>
+          <SelectItem value="ski-touring">{t("activity.skiTouring")}</SelectItem>
+          <SelectItem value="bouldering">{t("activity.bouldering")}</SelectItem>
+          <SelectItem value="social">{t("activity.social")}</SelectItem>
         </SelectContent>
       </Select>
     </div>

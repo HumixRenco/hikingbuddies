@@ -1,7 +1,10 @@
 import { Search } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 import heroImage from "@/assets/hero-hiking.jpg";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative overflow-hidden bg-background">
       <div className="container py-12 lg:py-20">
@@ -9,13 +12,11 @@ const HeroSection = () => {
           {/* Left content */}
           <div className="space-y-6 animate-slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              Adventures are better{" "}
-              <span className="text-primary">with buddies</span>
+              {t("hero.title")}{" "}
+              <span className="text-primary">{t("hero.titleHighlight")}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              Hiking Buddies is a non-profit community of outdoor and sport lovers. 
-              Join an upcoming hiking, climbing, cycling – you name it – event or 
-              organize your own and enjoy your adventures with like-minded people!
+              {t("hero.description")}
             </p>
             
             {/* Search bar */}
@@ -23,7 +24,7 @@ const HeroSection = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search events, routes, or communities..."
+                placeholder={t("hero.searchPlaceholder")}
                 className="w-full h-12 pl-12 pr-4 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               />
             </div>

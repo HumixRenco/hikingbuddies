@@ -3,12 +3,14 @@ import EventFilters from "@/components/events/EventFilters";
 import EventsList, { eventsData, Event } from "@/components/events/EventsList";
 import EventsSidePanel from "@/components/events/EventsSidePanel";
 import { EventDetails } from "@/components/details";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useState, useMemo, useCallback } from "react";
 
 const Events = () => {
   const [locationFilter, setLocationFilter] = useState("munich");
   const [activityFilter, setActivityFilter] = useState("all");
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const selectedEvent = useMemo(() => {
     return eventsData.find((e) => e.id === selectedEventId) || null;
@@ -19,7 +21,7 @@ const Events = () => {
     if (!selectedEvent) return null;
 
     const transportLabel = selectedEvent.transportMode === "none" 
-      ? "No transport" 
+      ? t("eventsTable.noTransport")
       : selectedEvent.transportMode.charAt(0).toUpperCase() + selectedEvent.transportMode.slice(1);
 
     return {
@@ -74,7 +76,7 @@ const Events = () => {
       ],
       totalComments: 5,
     };
-  }, [selectedEvent]);
+  }, [selectedEvent, t]);
 
   const handleEventClick = useCallback((eventId: number) => {
     setSelectedEventId(eventId);
@@ -82,7 +84,7 @@ const Events = () => {
 
   return (
     <PageLayout mainClassName="container py-8">
-      <h1 className="text-4xl font-bold text-foreground mb-6">Events</h1>
+      <h1 className="text-4xl font-bold text-foreground mb-6">{t("events.pageTitle")}</h1>
       
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Main Content */}

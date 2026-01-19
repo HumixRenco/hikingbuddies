@@ -1,7 +1,10 @@
 import { LinkWithArrow } from "@/components/ui/link-with-arrow";
+import { useLanguage } from "@/i18n/LanguageContext";
 import missionImg from "@/assets/mission-community.jpg";
 
 const MissionStatement = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-16 bg-secondary">
       <div className="container">
@@ -18,16 +21,13 @@ const MissionStatement = () => {
           {/* Content */}
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              What we stand for
+              {t("mission.title")}
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              We are a community of outdoor sports lovers and restless mountain explorers, 
-              and we believe it's more fun to do it together. Most of our events are organized 
-              by passionate community members, just like you, and therefore free of charge 
-              except transportation and personal costs.
+              {t("mission.description")}
             </p>
             <LinkWithArrow href="#">
-              More about community rules and values
+              {t("mission.linkText")}
             </LinkWithArrow>
           </div>
         </div>

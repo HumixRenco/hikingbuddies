@@ -1,4 +1,5 @@
 import { MapPin, Users } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const communities = [
   { city: "Munich", country: "Germany", members: 2450 },
@@ -10,16 +11,18 @@ const communities = [
 ];
 
 const Communities = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-16 bg-secondary">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-            Join a local community
+            {t("communities.title")}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Connect with outdoor enthusiasts in your area and discover new adventures together
+            {t("communities.description")}
           </p>
         </div>
 
@@ -41,7 +44,7 @@ const Communities = () => {
               <p className="text-sm text-muted-foreground mb-2">{community.country}</p>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                 <Users className="h-3.5 w-3.5" />
-                <span>{community.members.toLocaleString()} members</span>
+                <span>{community.members.toLocaleString()} {t("communities.members")}</span>
               </div>
             </a>
           ))}
