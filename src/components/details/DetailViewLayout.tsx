@@ -30,20 +30,20 @@ const DetailViewLayout = ({
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
 
-          {/* 3-column layout with page scrolling */}
+          {/* 3-column layout with page scrolling - responsive order */}
           <div className="min-h-full w-full grid grid-cols-1 lg:grid-cols-[280px_1fr_320px]">
-            {/* Left column - Photo Gallery */}
-            <aside className="bg-muted p-6">
-              {photoGallery}
-            </aside>
-
-            {/* Middle column - Main Content */}
-            <main className="p-8 border-x border-border">
+            {/* Middle column - Main Content (1st on mobile, 2nd on desktop) */}
+            <main className="p-6 lg:p-8 lg:border-x border-border order-1 lg:order-2">
               {mainContent}
             </main>
 
-            {/* Right column - Side Panel */}
-            <aside className="p-6 bg-card">
+            {/* Left column - Photo Gallery (2nd on mobile, 1st on desktop) */}
+            <aside className="bg-muted p-6 order-2 lg:order-1">
+              {photoGallery}
+            </aside>
+
+            {/* Right column - Side Panel (3rd on mobile, 3rd on desktop) */}
+            <aside className="p-6 bg-card order-3 lg:order-3">
               {sidePanel}
             </aside>
           </div>
