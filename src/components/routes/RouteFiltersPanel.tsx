@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { Separator } from "@/components/ui/separator";
 import { X, RotateCcw, Star } from "lucide-react";
 import { MultiSelectChips } from "@/components/ui/multi-select-chips";
@@ -50,9 +50,9 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
   onClose,
 }: RouteFiltersPanelProps) {
   return (
-    <div className="flex flex-col h-full w-full overflow-hidden">
+    <div className="flex flex-col h-full w-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border min-w-0">
+      <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-border bg-card min-w-0">
         <div className="flex items-center gap-2 min-w-0">
           <h2 className="font-semibold text-lg">Filters</h2>
           {activeFilterCount > 0 && (
@@ -82,8 +82,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
       </div>
 
       {/* Filter Content */}
-      <div className="flex-1 overflow-y-auto min-h-0">
-        <div className="p-4 space-y-6 min-w-0">
+      <div className="p-4 space-y-6 min-w-0 pb-8">
           {/* Difficulty */}
           <MultiSelectChips
             label="Difficulty"
