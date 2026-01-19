@@ -82,7 +82,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
       </div>
 
       {/* Filter Content */}
-      <ScrollArea className="flex-1 w-full">
+      <div className="flex-1 overflow-y-auto min-h-0">
         <div className="p-4 space-y-6 min-w-0">
           {/* Difficulty */}
           <MultiSelectChips
@@ -264,7 +264,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
             </div>
           </div>
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 });
