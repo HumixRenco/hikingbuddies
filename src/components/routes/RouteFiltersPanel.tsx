@@ -50,7 +50,7 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
   onClose,
 }: RouteFiltersPanelProps) {
   return (
-    <div className="flex flex-col h-full max-h-[inherit] overflow-hidden">
+    <div className="flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">
@@ -82,8 +82,8 @@ export const RouteFiltersPanel = memo(function RouteFiltersPanel({
       </div>
 
       {/* Filter Content */}
-      <ScrollArea className="flex-1 min-h-0">
-        <div className="p-4 space-y-6 pb-8">
+      <ScrollArea className="flex-1">
+        <div className="p-4 space-y-6">
           {/* Difficulty */}
           <MultiSelectChips
             label="Difficulty"
