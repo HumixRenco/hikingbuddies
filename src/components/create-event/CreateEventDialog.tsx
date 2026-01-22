@@ -19,7 +19,6 @@ import StepRouteSelection from "@/components/create-event/steps/StepRouteSelecti
 import StepDateTime from "@/components/create-event/steps/StepDateTime";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 
@@ -81,7 +80,6 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
   const [screen, setScreen] = React.useState<Screen>("activity");
   const [draft, setDraft] = React.useState<CreateEventDraft>(initialDraft);
   const [confirmOpen, setConfirmOpen] = React.useState(false);
-  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const isDirty = React.useMemo(() => {
@@ -106,7 +104,6 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
 
   const createEventMutation = useMutation({
     mutationFn: async () => {
-      if (!user) throw new Error("You must be logged in to create an event.");
       if (!draft.activityType) throw new Error("Please choose an activity.");
       if (requiresRoute(draft.activityType) && !draft.routeId) throw new Error("Please pick a route.");
       if (!draft.dateISO || !draft.time) throw new Error("Please pick a date and time.");
@@ -135,14 +132,14 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
             : draft.activityType;
 
       const payload = {
-        created_by: user.id,
+        created_by: null,
         title: draft.title.trim(),
         date_label,
         time: draft.time,
         duration: "TBD",
         description: null,
         cover_image_key,
-        organizer_name: user.email ?? "Member",
+        organizer_name: "Community member",
         organizer_avatar_url: null,
         location_key: "munich",
         departure_place: "TBD",
@@ -225,8 +222,8 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
   }, [draft.activityType, draft.dateISO, draft.routeId, draft.time, screen]);
 
   const canCreate = React.useMemo(() => {
-    return !!user && !!draft.title.trim() && draft.participantsCount >= 2;
-  }, [draft.participantsCount, draft.title, user]);
+    return !!draft.title.trim() && draft.participantsCount >= 2;
+  }, [draft.participantsCount, draft.title]);
 
   const canGoBack = flowIndex > 0;
 
