@@ -1,24 +1,29 @@
 import EventsTable from "./EventsTable";
-import { eventsData, Event } from "@/data/eventsData";
+import type { Event } from "@/types/events";
 
 interface EventsListProps {
   locationFilter: string;
   activityFilter: string;
-  onEventClick?: (eventId: number) => void;
+  events: Event[];
+  onEventClick?: (eventId: string) => void;
 }
 
-export { eventsData, type Event };
+const EventsList = ({ locationFilter, activityFilter, events, onEventClick }: EventsListProps) => {
+  const filteredEvents = events.filter((event) => {
+    const matchesLocation = locationFilter === "all" || event.locationKey === locationFilter;
+    const matchesActivity = activityFilter === "all" || event.activityType === activityFilter;
+    return matchesLocation && matchesActivity;
+  });
 
-const EventsList = ({ locationFilter, activityFilter, onEventClick }: EventsListProps) => {
   // Group events by date
-  const groupedEvents = eventsData.reduce((acc, event) => {
+  const groupedEvents = filteredEvents.reduce((acc, event) => {
     const dateKey = event.dateLabel;
     if (!acc[dateKey]) {
       acc[dateKey] = [];
     }
     acc[dateKey].push(event);
     return acc;
-  }, {} as Record<string, typeof eventsData>);
+  }, {} as Record<string, Event[]>);
 
   const dateKeys = Object.keys(groupedEvents);
 

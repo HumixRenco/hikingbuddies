@@ -2,14 +2,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { StackedAvatars } from "@/components/ui/stacked-avatars";
 import { Mountain, Bike, PersonStanding, Users } from "lucide-react";
-import { Event } from "@/data/eventsData";
+import type { Event } from "@/types/events";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 interface EventsTableProps {
   dateLabel: string;
   events: Event[];
   showHeader?: boolean;
-  onEventClick?: (eventId: number) => void;
+  onEventClick?: (eventId: string) => void;
 }
 
 const activityIcons: Record<string, React.ElementType> = {
