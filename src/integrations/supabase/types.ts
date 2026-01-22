@@ -14,7 +14,81 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          activity_type: string
+          available_spots: number
+          cover_image_key: string
+          created_at: string
+          date_label: string
+          departure_place: string
+          description: string | null
+          difficulty: string | null
+          distance: string
+          duration: string
+          elevation: string
+          id: string
+          location_key: string
+          organizer_avatar_url: string | null
+          organizer_name: string
+          participant_avatars: string[]
+          participants_count: number
+          time: string
+          title: string
+          total_height: string
+          transport_mode: string
+          waitlist_count: number
+        }
+        Insert: {
+          activity_type: string
+          available_spots?: number
+          cover_image_key: string
+          created_at?: string
+          date_label: string
+          departure_place: string
+          description?: string | null
+          difficulty?: string | null
+          distance: string
+          duration: string
+          elevation: string
+          id?: string
+          location_key: string
+          organizer_avatar_url?: string | null
+          organizer_name: string
+          participant_avatars?: string[]
+          participants_count?: number
+          time: string
+          title: string
+          total_height: string
+          transport_mode: string
+          waitlist_count?: number
+        }
+        Update: {
+          activity_type?: string
+          available_spots?: number
+          cover_image_key?: string
+          created_at?: string
+          date_label?: string
+          departure_place?: string
+          description?: string | null
+          difficulty?: string | null
+          distance?: string
+          duration?: string
+          elevation?: string
+          id?: string
+          location_key?: string
+          organizer_avatar_url?: string | null
+          organizer_name?: string
+          participant_avatars?: string[]
+          participants_count?: number
+          time?: string
+          title?: string
+          total_height?: string
+          transport_mode?: string
+          waitlist_count?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
