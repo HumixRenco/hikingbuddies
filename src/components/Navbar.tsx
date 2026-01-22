@@ -8,10 +8,12 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "@/i18n/LanguageContext";
 import logo from "@/assets/logo.png";
 import logoMobile from "@/assets/logo-mobile.png";
+import CreateEventDialog from "@/components/create-event/CreateEventDialog";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [createEventOpen, setCreateEventOpen] = useState(false);
   const { t } = useLanguage();
 
   return (
@@ -42,7 +44,9 @@ const Navbar = () => {
             <Search className="h-5 w-5" />
           </Button>
           <LanguageSwitcher />
-          <Button variant="cta">{t("nav.addEvent")}</Button>
+          <Button variant="cta" onClick={() => setCreateEventOpen(true)}>
+            {t("nav.addEvent")}
+          </Button>
           <Avatar 
             className="h-9 w-9 cursor-pointer rounded-md"
             onClick={() => setProfileOpen(true)}
@@ -89,13 +93,25 @@ const Navbar = () => {
             <Link to="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
               {t("nav.community")}
             </Link>
-            <Button variant="cta" className="w-full">{t("nav.addEvent")}</Button>
+            <Button
+              variant="cta"
+              className="w-full"
+              onClick={() => {
+                setCreateEventOpen(true);
+                setMobileMenuOpen(false);
+              }}
+            >
+              {t("nav.addEvent")}
+            </Button>
           </div>
         </div>
       )}
 
       {/* User Profile Sidebar */}
       <UserProfileSidebar open={profileOpen} onOpenChange={setProfileOpen} />
+
+      {/* Create Event Dialog */}
+      <CreateEventDialog open={createEventOpen} onOpenChange={setCreateEventOpen} />
     </header>
   );
 };
