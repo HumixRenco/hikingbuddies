@@ -11,7 +11,7 @@ import {
   ArrowUpRight,
   MoveHorizontal
 } from "lucide-react";
-import { Event } from "@/data/eventsData";
+import type { Event } from "@/types/events";
 
 interface EventCardProps {
   event: Event;

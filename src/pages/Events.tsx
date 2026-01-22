@@ -1,20 +1,22 @@
 import PageLayout from "@/components/layout/PageLayout";
 import EventFilters from "@/components/events/EventFilters";
-import EventsList, { eventsData, Event } from "@/components/events/EventsList";
+import EventsList from "@/components/events/EventsList";
 import EventsSidePanel from "@/components/events/EventsSidePanel";
 import { EventDetails } from "@/components/details";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useState, useMemo, useCallback } from "react";
+import { useEvents } from "@/hooks/useEvents";
 
 const Events = () => {
   const [locationFilter, setLocationFilter] = useState("munich");
   const [activityFilter, setActivityFilter] = useState("all");
-  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const { t } = useLanguage();
+  const { data: events = [] } = useEvents();
 
   const selectedEvent = useMemo(() => {
-    return eventsData.find((e) => e.id === selectedEventId) || null;
-  }, [selectedEventId]);
+    return events.find((e) => e.id === selectedEventId) || null;
+  }, [events, selectedEventId]);
 
   // Transform event data to EventDetails format
   const eventDetailsData = useMemo(() => {
@@ -78,7 +80,7 @@ const Events = () => {
     };
   }, [selectedEvent, t]);
 
-  const handleEventClick = useCallback((eventId: number) => {
+  const handleEventClickString = useCallback((eventId: string) => {
     setSelectedEventId(eventId);
   }, []);
 
@@ -98,7 +100,8 @@ const Events = () => {
           <EventsList 
             locationFilter={locationFilter}
             activityFilter={activityFilter}
-            onEventClick={handleEventClick}
+            events={events}
+            onEventClick={handleEventClickString}
           />
         </div>
         
