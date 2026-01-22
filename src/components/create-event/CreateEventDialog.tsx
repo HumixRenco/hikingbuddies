@@ -17,6 +17,11 @@ import { X } from "lucide-react";
 import StepActivityType from "@/components/create-event/steps/StepActivityType";
 import StepRouteSelection from "@/components/create-event/steps/StepRouteSelection";
 import StepDateTime from "@/components/create-event/steps/StepDateTime";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/hooks/use-toast";
+import { format } from "date-fns";
 
 type Props = {
   open: boolean;
@@ -76,6 +81,8 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
   const [screen, setScreen] = React.useState<Screen>("activity");
   const [draft, setDraft] = React.useState<CreateEventDraft>(initialDraft);
   const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
 
   const isDirty = React.useMemo(() => {
     return JSON.stringify(draft) !== JSON.stringify(initialDraft);
@@ -96,6 +103,80 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
       // ignore
     }
   }, []);
+
+  const createEventMutation = useMutation({
+    mutationFn: async () => {
+      if (!user) throw new Error("You must be logged in to create an event.");
+      if (!draft.activityType) throw new Error("Please choose an activity.");
+      if (requiresRoute(draft.activityType) && !draft.routeId) throw new Error("Please pick a route.");
+      if (!draft.dateISO || !draft.time) throw new Error("Please pick a date and time.");
+      if (!draft.title.trim()) throw new Error("Please give your event a name.");
+
+      const date = new Date(draft.dateISO);
+      const date_label = Number.isNaN(date.getTime()) ? "" : format(date, "EEE, d MMM");
+
+      const cover_image_key =
+        draft.activityType === "cycling"
+          ? "event-trail-run"
+          : draft.activityType === "social"
+            ? "event-sunrise"
+            : draft.activityType === "bouldering"
+              ? "event-summit"
+              : draft.activityType === "skiing"
+                ? "event-summit"
+                : "event-sunrise";
+
+      // Map wizard activity types to the app's event activity types.
+      const activity_type =
+        draft.activityType === "skiing"
+          ? "ski-touring"
+          : draft.activityType === "via-ferrata" || draft.activityType === "climbing"
+            ? "hiking"
+            : draft.activityType;
+
+      const payload = {
+        created_by: user.id,
+        title: draft.title.trim(),
+        date_label,
+        time: draft.time,
+        duration: "TBD",
+        description: null,
+        cover_image_key,
+        organizer_name: user.email ?? "Member",
+        organizer_avatar_url: null,
+        location_key: "munich",
+        departure_place: "TBD",
+        transport_mode: "none",
+        activity_type,
+        difficulty: null,
+        distance: "TBD",
+        elevation: "0",
+        total_height: "0",
+        participants_count: 0,
+        available_spots: draft.participantsCount,
+        waitlist_count: 0,
+        participant_avatars: [] as string[],
+      };
+
+      const { error } = await supabase.from("events").insert(payload);
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      toast({ title: "Event created", description: "Nice — it’s live in the events list." });
+      await queryClient.invalidateQueries({ queryKey: ["events"] });
+      clearPersisted();
+      setDraft(initialDraft);
+      setScreen("activity");
+      onOpenChange(false);
+    },
+    onError: (err: any) => {
+      toast({
+        title: "Couldn’t create event",
+        description: err?.message ?? "Something went wrong.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const attemptClose = React.useCallback(() => {
     if (isDirty) {
@@ -142,6 +223,10 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
     if (screen === "datetime") return !!draft.dateISO && !!draft.time;
     return false;
   }, [draft.activityType, draft.dateISO, draft.routeId, draft.time, screen]);
+
+  const canCreate = React.useMemo(() => {
+    return !!user && !!draft.title.trim() && draft.participantsCount >= 2;
+  }, [draft.participantsCount, draft.title, user]);
 
   const canGoBack = flowIndex > 0;
 
@@ -311,8 +396,12 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
                     Next
                   </Button>
                 ) : (
-                  <Button variant="cta" disabled>
-                    Publish
+                  <Button
+                    variant="cta"
+                    onClick={() => createEventMutation.mutate()}
+                    disabled={!canCreate || createEventMutation.isPending}
+                  >
+                    {createEventMutation.isPending ? "Creating…" : "Create event"}
                   </Button>
                 )}
               </div>

@@ -20,6 +20,7 @@ export type Database = {
           available_spots: number
           cover_image_key: string
           created_at: string
+          created_by: string | null
           date_label: string
           departure_place: string
           description: string | null
@@ -44,6 +45,7 @@ export type Database = {
           available_spots?: number
           cover_image_key: string
           created_at?: string
+          created_by?: string | null
           date_label: string
           departure_place: string
           description?: string | null
@@ -68,6 +70,7 @@ export type Database = {
           available_spots?: number
           cover_image_key?: string
           created_at?: string
+          created_by?: string | null
           date_label?: string
           departure_place?: string
           description?: string | null
