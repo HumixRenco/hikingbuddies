@@ -31,14 +31,36 @@ const steps = [
 
 const STORAGE_KEY = "create-event-draft";
 
-type ActivityType = "hiking" | "cycling" | "climbing" | "skiing" | "bouldering" | "social";
-const routeRequired: ActivityType[] = ["hiking", "cycling", "climbing"];
+export type ActivityType =
+  | "hiking"
+  | "cycling"
+  | "climbing"
+  | "via-ferrata"
+  | "bouldering"
+  | "skiing"
+  | "social";
+
+const routeRequired: ActivityType[] = ["hiking", "cycling", "climbing", "via-ferrata"];
+
+type Screen = "activity" | "route" | "datetime" | "details";
+
+function requiresRoute(activityType: ActivityType | null) {
+  return activityType ? routeRequired.includes(activityType) : true;
+}
+
+function getFlowScreens(activityType: ActivityType | null): Screen[] {
+  return requiresRoute(activityType)
+    ? ["activity", "route", "datetime", "details"]
+    : ["activity", "datetime", "details"];
+}
 
 export type CreateEventDraft = {
   activityType: ActivityType | null;
   routeId: string | null;
   dateISO: string | null;
   time: string;
+  title: string;
+  participantsCount: number;
 };
 
 const initialDraft: CreateEventDraft = {
@@ -46,10 +68,12 @@ const initialDraft: CreateEventDraft = {
   routeId: null,
   dateISO: null,
   time: "",
+  title: "",
+  participantsCount: 8,
 };
 
 export default function CreateEventDialog({ open, onOpenChange }: Props) {
-  const [step, setStep] = React.useState(0);
+  const [screen, setScreen] = React.useState<Screen>("activity");
   const [draft, setDraft] = React.useState<CreateEventDraft>(initialDraft);
   const [confirmOpen, setConfirmOpen] = React.useState(false);
 
@@ -57,7 +81,7 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
     return JSON.stringify(draft) !== JSON.stringify(initialDraft);
   }, [draft]);
 
-  const persist = React.useCallback((next: { step: number; draft: CreateEventDraft }) => {
+  const persist = React.useCallback((next: { screen: Screen; draft: CreateEventDraft }) => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch {
@@ -86,9 +110,9 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
-      const parsed = JSON.parse(raw) as { step?: number; draft?: CreateEventDraft };
+      const parsed = JSON.parse(raw) as { screen?: Screen; draft?: CreateEventDraft };
       if (parsed?.draft) setDraft({ ...initialDraft, ...parsed.draft });
-      if (typeof parsed?.step === "number") setStep(Math.min(steps.length - 1, Math.max(0, parsed.step)));
+      if (parsed?.screen) setScreen(parsed.screen);
     } catch {
       // ignore
     }
@@ -96,30 +120,51 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
 
   React.useEffect(() => {
     if (!open) return;
-    persist({ step, draft });
-  }, [draft, open, persist, step]);
+    persist({ screen, draft });
+  }, [draft, open, persist, screen]);
 
-  const progress = ((step + 1) / steps.length) * 100;
+  // Keep the current screen valid when activity type changes (e.g. route becomes irrelevant)
+  React.useEffect(() => {
+    if (!open) return;
+    const flow = getFlowScreens(draft.activityType);
+    if (!flow.includes(screen)) {
+      setScreen(flow[flow.length - 1] ?? "activity");
+    }
+  }, [draft.activityType, open, screen]);
 
-  const goBack = React.useCallback(() => {
-    setStep((s) => Math.max(0, s - 1));
-  }, []);
-
-  const goNext = React.useCallback(() => {
-    setStep((s) => {
-      if (s === 0) {
-        const activity = draft.activityType;
-        if (!activity) return s;
-        return routeRequired.includes(activity) ? 1 : 2;
-      }
-      return Math.min(steps.length - 1, s + 1);
-    });
-  }, [draft.activityType]);
+  const flowScreens = React.useMemo(() => getFlowScreens(draft.activityType), [draft.activityType]);
+  const flowIndex = React.useMemo(() => Math.max(0, flowScreens.indexOf(screen)), [flowScreens, screen]);
+  const progress = ((flowIndex + 1) / flowScreens.length) * 100;
 
   const canGoNext = React.useMemo(() => {
-    if (step === 0) return !!draft.activityType;
-    return step < steps.length - 1;
-  }, [draft.activityType, step]);
+    if (screen === "activity") return !!draft.activityType;
+    if (screen === "route") return !!draft.routeId;
+    if (screen === "datetime") return !!draft.dateISO && !!draft.time;
+    return false;
+  }, [draft.activityType, draft.dateISO, draft.routeId, draft.time, screen]);
+
+  const canGoBack = flowIndex > 0;
+
+  const goBack = React.useCallback(() => {
+    const flow = getFlowScreens(draft.activityType);
+    const idx = Math.max(0, flow.indexOf(screen));
+    const prev = flow[idx - 1];
+    if (prev) setScreen(prev);
+  }, [draft.activityType, screen]);
+
+  const goNext = React.useCallback(() => {
+    if (screen === "activity") {
+      setScreen(requiresRoute(draft.activityType) ? "route" : "datetime");
+      return;
+    }
+    if (screen === "route") {
+      setScreen("datetime");
+      return;
+    }
+    if (screen === "datetime") {
+      setScreen("details");
+    }
+  }, [draft.activityType, screen]);
 
   return (
     <Dialog
@@ -141,22 +186,33 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
               <div className="min-w-0">
                 <h2 className="text-xl font-semibold text-foreground">Create event</h2>
                 <p className="text-sm text-muted-foreground">
-                  Step {step + 1}/{steps.length} — let’s get your crew outside.
+                  Step {flowIndex + 1}/{flowScreens.length} — let’s get your crew outside.
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="hidden sm:flex items-center gap-2">
-                  {steps.map((s, idx) => (
+                  {flowScreens.map((key) => {
+                    const label =
+                      key === "activity"
+                        ? "Activity"
+                        : key === "route"
+                          ? "Route"
+                          : key === "datetime"
+                            ? "Date & time"
+                            : "Details";
+                    const idx = flowScreens.indexOf(key);
+                    return (
                     <div
-                      key={s.key}
+                      key={key}
                       className={cn(
                         "text-sm font-medium",
-                        idx === step ? "text-foreground" : "text-muted-foreground",
+                        idx === flowIndex ? "text-foreground" : "text-muted-foreground",
                       )}
                     >
-                      {s.label}
+                      {label}
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
 
                 <Button variant="ghost" size="icon" onClick={attemptClose} aria-label="Close create event">
@@ -168,12 +224,12 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
               <div className="flex items-center gap-4">
                 <Progress value={progress} className="h-2 flex-1" />
                 <div className="flex items-center gap-1" aria-label="Step progress">
-                  {steps.map((_, idx) => (
+                  {flowScreens.map((_, idx) => (
                     <span
                       key={idx}
                       className={cn(
                         "h-2 w-2 rounded-full",
-                        idx <= step ? "bg-primary" : "bg-muted",
+                        idx <= flowIndex ? "bg-primary" : "bg-muted",
                       )}
                     />
                   ))}
@@ -184,16 +240,65 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
 
           <main className="flex-1 min-h-0 overflow-y-auto">
             <div className="container py-8">
-              {step === 0 && <StepActivityType value={draft} onChange={setDraft} />}
-              {step === 1 && <StepRouteSelection />}
-              {step === 2 && <StepDateTime value={draft} onChange={setDraft} />}
+              {screen === "activity" && <StepActivityType value={draft} onChange={setDraft} />}
+              {screen === "route" && <StepRouteSelection value={draft} onChange={setDraft} />}
+              {screen === "datetime" && <StepDateTime value={draft} onChange={setDraft} />}
+              {screen === "details" && (
+                <div className="mx-auto w-full max-w-2xl">
+                  <h3 className="text-lg font-semibold text-foreground">Event details</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Give it a name and set a comfy group size — nobody likes a surprise crowd.
+                  </p>
+
+                  <div className="mt-6 grid gap-5">
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium text-foreground" htmlFor="create-event-title">
+                        Event name
+                      </label>
+                      <input
+                        id="create-event-title"
+                        className={cn(
+                          "h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                          "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                        )}
+                        value={draft.title}
+                        onChange={(e) => setDraft((d) => ({ ...d, title: e.target.value }))}
+                        placeholder="e.g. Sunday sunrise crew"
+                      />
+                    </div>
+
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium text-foreground" htmlFor="create-event-participants">
+                        Number of participants
+                      </label>
+                      <input
+                        id="create-event-participants"
+                        type="number"
+                        min={2}
+                        max={50}
+                        className={cn(
+                          "h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
+                          "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                        )}
+                        value={draft.participantsCount}
+                        onChange={(e) =>
+                          setDraft((d) => ({ ...d, participantsCount: Math.max(2, Number(e.target.value || 0)) }))
+                        }
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Keep it realistic — you can always open more spots later.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </main>
 
           <footer className="border-t border-border bg-background">
             <div className="container py-4 flex items-center justify-between gap-3">
               <div>
-                {step > 0 && (
+                {canGoBack && (
                   <Button variant="outline" onClick={goBack}>
                     Back
                   </Button>
@@ -201,7 +306,7 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
               </div>
 
               <div className="flex items-center gap-2">
-                {canGoNext ? (
+                {screen !== "details" ? (
                   <Button variant="cta" onClick={goNext} disabled={!canGoNext}>
                     Next
                   </Button>
@@ -229,7 +334,7 @@ export default function CreateEventDialog({ open, onOpenChange }: Props) {
                 onClick={() => {
                   clearPersisted();
                   setDraft(initialDraft);
-                  setStep(0);
+                  setScreen("activity");
                   setConfirmOpen(false);
                   onOpenChange(false);
                 }}
