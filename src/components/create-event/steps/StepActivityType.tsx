@@ -19,6 +19,7 @@ const activities = [
   { value: "hiking", label: "Hiking", icon: faPersonHiking },
   { value: "cycling", label: "Cycling", icon: faBicycle },
   { value: "climbing", label: "Climbing", icon: faMountain },
+  { value: "via-ferrata", label: "Via ferrata", icon: faMountain },
   { value: "skiing", label: "Skiing", icon: faPersonSkiing },
   { value: "bouldering", label: "Bouldering", icon: faMountain },
   { value: "social", label: "Social", icon: faUsers },
@@ -74,7 +75,7 @@ export default function StepActivityType({ value, onChange }: Props) {
       </div>
 
       <p className="mt-6 text-sm text-muted-foreground">
-        Tip: Hiking, Cycling, and Climbing will ask you to pick a route. The rest jump straight to date & time.
+        Tip: Hiking, Cycling, Climbing, and Via ferrata will ask you to pick a route. The rest jump straight to date & time.
       </p>
     </section>
   );

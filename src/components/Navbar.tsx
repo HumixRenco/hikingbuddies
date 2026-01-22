@@ -9,12 +9,16 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import logo from "@/assets/logo.png";
 import logoMobile from "@/assets/logo-mobile.png";
 import CreateEventDialog from "@/components/create-event/CreateEventDialog";
+import AuthDialog from "@/components/auth/AuthDialog";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [createEventOpen, setCreateEventOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const { t } = useLanguage();
+  const { user } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -44,7 +48,10 @@ const Navbar = () => {
             <Search className="h-5 w-5" />
           </Button>
           <LanguageSwitcher />
-          <Button variant="cta" onClick={() => setCreateEventOpen(true)}>
+          <Button
+            variant="cta"
+            onClick={() => (user ? setCreateEventOpen(true) : setAuthOpen(true))}
+          >
             {t("nav.addEvent")}
           </Button>
           <Avatar 
@@ -97,7 +104,8 @@ const Navbar = () => {
               variant="cta"
               className="w-full"
               onClick={() => {
-                setCreateEventOpen(true);
+                if (user) setCreateEventOpen(true);
+                else setAuthOpen(true);
                 setMobileMenuOpen(false);
               }}
             >
@@ -112,6 +120,9 @@ const Navbar = () => {
 
       {/* Create Event Dialog */}
       <CreateEventDialog open={createEventOpen} onOpenChange={setCreateEventOpen} />
+
+      {/* Auth Dialog */}
+      <AuthDialog open={authOpen} onOpenChange={setAuthOpen} />
     </header>
   );
 };
